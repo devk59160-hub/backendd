@@ -253,3 +253,132 @@ export const deleteHolder = async (req, res) => {
     });
   }
 };
+
+export const getdataid = async (req, res) => {
+  try {
+    // URL se user ID lena
+    const { id } = req.params;
+
+    // MongoDB se particular user find karna
+    const userdata = await detailmodel.findById(id)
+      .lean();
+
+    // User nahi mila toh response
+    if (!userdata) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found"
+      });
+    }
+
+    // Related models se data fetch karna
+    const [userid, car,od,ac] = await Promise.all([
+
+      useridmodel.find({
+        userid: userdata._id
+      })
+      .lean(),
+
+      cardmodel.find({
+        userid: userdata._id
+      })
+      .lean(),
+      odmodel.find({
+        userid: userdata._id
+      })
+      .lean(),
+      acmodel.find({
+        userid:userdata._id
+      })
+      .lean(),
+
+    ]);
+
+    // Final response
+    return res.status(200).json({
+      success: true,
+      message: "Successfully fetched data",
+      userdata: {
+        ...userdata,
+        data: {
+          userid,
+          car,
+          od,
+          ac,
+          applicationCount: userid.length + car.length + od.lenght + ac.lenght
+        }
+      }
+    });
+
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({
+      success: false,
+      message: error.message
+    });
+  }
+};
+
+export const getdataresponse = async (req, res) => {
+  try {
+    // Saare users fetch karo
+    const users = await detailmodel.find()
+      .select("fullname phonenumber email city state pen address pincode ")
+      .lean();
+
+    // Har user ka related data uske andar add karo
+    const allUsers = await Promise.all(
+      users.map(async (user) => {
+
+
+        const [userid, car ,od,ac]= await Promise.all([
+
+           useridmodel.find({
+            userid: user._id
+          })
+          .lean(),
+          cardmodel.find({
+            userid: user._id
+          })
+          .lean(),
+          odmodel.find({
+            userid: user._id
+          })
+          .lean(),
+          acmodel.find({
+            userid:user._id
+          })
+          .lean(),
+        ]);
+
+
+
+        return {
+          ...user,
+          data: {
+           
+            userid,
+            car,
+            od,
+            ac,
+            applicationCount:userid.length + car.length + od.length + ac.length
+          }
+        };
+      })
+    );
+
+    return res.status(200).json({
+      success: true,
+      count: allUsers.length,
+      users: allUsers
+    });
+
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message
+    });
+  }
+};
+
