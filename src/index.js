@@ -13,10 +13,10 @@ app.use(express.json())
 
 app.use(cors({
      origin: ["http://localhost:5173",
-          "https://deshtop.vercel.app/"
+          "https://deshtop.vercel.app"
      ],
      credentials:true,
-     methods: ["GET", "POST", "DELETE"],
+     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
 }))
 
 app.use(express.urlencoded({ extended: true }));
