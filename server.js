@@ -1,7 +1,7 @@
-import dotenv from "dotenv"
+
 import app from "./src/index.js"
 import DataConnection from "./src/dataconnection/mongoose.js"
-dotenv.config()
+
 await DataConnection()
 
 
