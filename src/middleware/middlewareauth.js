@@ -13,7 +13,7 @@ export const isAuthentication = (req,res,next)=>{
             })
         }
 
-        const decoded = jwt.verify(token,process.env.MONGO_DB)
+        const decoded = jwt.verify(token,process.env.SECRET_KEY)
         req.userId = decoded.id;
         next();
    } catch (error) {

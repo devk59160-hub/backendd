@@ -9,7 +9,7 @@ import acmodel from "../model/ac.js"
 export function sendtoken(user, res, message) {
   const token = jwt.sign(
     { id: user._id },
-    process.env.MONGO_DB,
+    process.env.SECRET_KEY,
     { expiresIn: "7d" }
   );
 
