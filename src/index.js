@@ -9,18 +9,20 @@ dotenv.config();
 const app = express();
 
 const allowedOrigins = [
-
   "https://creaditsea.vercel.app",
   "https://deshtop.vercel.app"
 ];
 
 app.use(cors({
   origin: function (origin, callback) {
+
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
+      console.log("Blocked Origin:", origin);
       callback(new Error("Not allowed by CORS"));
     }
+
   },
   credentials: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],

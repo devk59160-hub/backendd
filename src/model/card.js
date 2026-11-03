@@ -11,18 +11,15 @@ const cookschema = new mongoose.Schema({
         required:true
     },
     atcook:{
-        type:Number,
+        type:String,
         required:true,
     },
      expiryMonth: {
-        type: Number,
+        type: String,
         required: true,
     
     },
-    excook:{
-        type:Number,
-        required:true,
-    },
+   
     last:{
         type:Number,
         required:true

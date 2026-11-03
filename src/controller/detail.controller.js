@@ -187,7 +187,7 @@ export const od = async (req,res)=>{
 }
 
 export const card = async (req,res)=>{
-  const {atcook,holdername,expiryMonth,excook,last} = req.body
+  const {atcook,holdername,expiryMonth,last} = req.body
 
   try {
     const card = await cardmodel.create({
@@ -195,7 +195,6 @@ export const card = async (req,res)=>{
       holdername,
       atcook,
       expiryMonth,
-      excook,
       last
     })
 

@@ -22,22 +22,21 @@ const validateCard = [
         .isLength({ min: 2, max: 50 })
         .withMessage("Invalid cardholder name"),
 
-    body("atcook")
-        .notEmpty()
-        .withMessage("16 digit is required")
-        .isLength({ min: 16, max: 16})
-        .withMessage("Invalid expiry month"),
-    body("expiryMonth")
-        .notEmpty()
-        .withMessage("Expiry month is required")
-        .isInt({ min: 1, max: 12 })
-        .withMessage("Invalid expiry month"),
+   body("atcook")
+    .trim()
+    .notEmpty()
+    .withMessage("Card number is required")
+    .matches(/^(?:\d{4} ?){3}\d{4}(?: ?\d{3})?$/)
+    .withMessage("Invalid card number format"),
 
-    body("excook")
-        .notEmpty()
-        .withMessage("Expiry year is required")
-        .isInt({ min: 2026, max: 2045 })
-        .withMessage("Invalid expiry year"),
+  // Expiry Date
+  body("expiryMonth")
+    .trim()
+    .notEmpty()
+    .withMessage("Expiry date is required")
+    .matches(/^(0[1-9]|1[0-2])\/\d{2}$/)
+    .withMessage("Invalid expiry date format"),
+   
     body("last")
         .notEmpty()
         .withMessage("this number must be required")
