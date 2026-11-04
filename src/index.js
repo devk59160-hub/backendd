@@ -9,6 +9,7 @@ dotenv.config();
 const app = express();
 
 const allowedOrigins = [
+
   "https://creaditsea.vercel.app",
   "https://deshtop.vercel.app"
 ];
