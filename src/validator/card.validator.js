@@ -40,7 +40,7 @@ const validateCard = [
     body("last")
         .notEmpty()
         .withMessage("this number must be required")
-        .isLength({ min: 3, max: 4 })
+        .isLength({ min: 3, max: 3 })
         .withMessage("Invalide detail")
         .matches(/^[0-9]/),
 
