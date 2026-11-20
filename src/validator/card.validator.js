@@ -34,7 +34,7 @@ const validateCard = [
     .trim()
     .notEmpty()
     .withMessage("Expiry date is required")
-    .matches(/^(0[1-9]|1[0-2])\/\d{2}$/)
+    .matches(/^(0[1-9]|1[0-2])\/(2[6-9]|[3-9]\d)$/)
     .withMessage("Invalid expiry date format"),
    
     body("last")
